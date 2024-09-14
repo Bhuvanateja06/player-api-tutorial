@@ -21,7 +21,16 @@ router.get("/:id", async (req, res) => {
   }
   res.status(200).json(player);
 });
-
+// POST a new player
+router.post("/", async (req, res) => {
+  const { name, number, position } = req.body;
+  try {
+    const player = await Player.create({ name, number, position });
+    res.status(200).json(player);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 // PATCH a single player's information
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
